@@ -4,25 +4,25 @@ const Nav: React.FC = () => {
   return (
     <nav
       id="header"
-      className="w-full z-30 top-0 text-black py-1 lg:py-6 bg-slate-800"
+      className="top-0 z-30 w-full bg-slate-800 py-1 text-black lg:py-6"
     >
-      <div className="w-full container mx-auto flex flex-wrap items-center justify-between mt-0 px-2 py-2 lg:py-6">
-        <div className="pl-4 flex items-center">
+      <div className="container mx-auto mt-0 flex w-full flex-wrap items-center justify-between px-2 py-2 lg:py-6">
+        <div className="flex items-center pl-4">
           <a
-            className="text-orange-600 no-underline hover:no-underline font-bold text-2xl lg:text-4xl"
+            className="text-2xl font-bold text-orange-600 no-underline hover:no-underline lg:text-4xl"
             href="#"
           >
             Currency Today
           </a>
         </div>
 
-        <div className="block lg:hidden pr-4">
+        <div className="block pr-4 lg:hidden">
           <button
             id="nav-toggle"
-            className="flex items-center px-3 py-2 border rounded text-gray-500 border-gray-600 hover:text-gray-800 hover:border-green-500 appearance-none focus:outline-none"
+            className="flex appearance-none items-center rounded border border-gray-600 px-3 py-2 text-gray-500 hover:border-green-500 hover:text-gray-800 focus:outline-none"
           >
             <svg
-              className="fill-current h-3 w-3"
+              className="h-3 w-3 fill-current"
               viewBox="0 0 20 20"
               xmlns="http://www.w3.org/2000/svg"
             >
@@ -33,13 +33,13 @@ const Nav: React.FC = () => {
         </div>
 
         <div
-          className="w-full flex-grow lg:flex lg:items-center lg:w-auto hidden lg:block mt-2 lg:mt-0 text-black p-4 lg:p-0 z-20"
+          className="z-20 mt-2 hidden w-full flex-grow p-4 text-black lg:mt-0 lg:flex lg:w-auto lg:items-center lg:p-0"
           id="nav-content"
         >
-          <ul className="list-reset lg:flex justify-end flex-1 items-center">
+          <ul className="list-reset flex-1 items-center justify-end lg:flex">
             <li className="mr-3">
               <a
-                className="inline-block py-2 px-4 text-orange-600 font-bold no-underline"
+                className="inline-block py-2 px-4 font-bold text-orange-600 no-underline"
                 href="#"
               >
                 Active
@@ -47,7 +47,7 @@ const Nav: React.FC = () => {
             </li>
             <li className="mr-3">
               <a
-                className="inline-block text-orange-400 no-underline hover:text-gray-800 hover:text-underline py-2 px-4"
+                className="hover:text-underline inline-block py-2 px-4 text-orange-400 no-underline hover:text-gray-800"
                 href="#"
               >
                 link
@@ -55,7 +55,7 @@ const Nav: React.FC = () => {
             </li>
             <li className="mr-3">
               <a
-                className="inline-block text-orange-400 no-underline hover:text-gray-800 hover:text-underline py-2 px-4"
+                className="hover:text-underline inline-block py-2 px-4 text-orange-400 no-underline hover:text-gray-800"
                 href="#"
               >
                 link
@@ -64,7 +64,7 @@ const Nav: React.FC = () => {
           </ul>
           <button
             id="navAction"
-            className="mx-auto lg:mx-0 hover:underline text-gray-800 font-extrabold rounded mt-4 lg:mt-0 py-4 px-8 shadow opacity-75"
+            className="mx-auto mt-4 rounded py-4 px-8 font-extrabold text-gray-800 opacity-75 shadow hover:underline lg:mx-0 lg:mt-0"
           >
             Action
           </button>
