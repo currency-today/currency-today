@@ -1,6 +1,25 @@
-import React from 'react'
+/* eslint-disable @typescript-eslint/no-misused-promises */
+/* eslint-disable @typescript-eslint/no-floating-promises */
+import React, { useCallback, useState } from 'react'
+import { GiBrazilFlag, GiUsaFlag } from 'react-icons/gi'
+import { useTranslation } from 'react-i18next'
+
+import colors from '../utils/colors'
 
 const Nav: React.FC = () => {
+  const [selectedLanguage, setSelectedLanguage] = useState('pt-BR')
+
+  const { i18n: i18nHook } = useTranslation()
+
+  const handleChangeSelectedLanguage = useCallback(
+    async (language: 'pt-BR' | 'en-US') => {
+      setSelectedLanguage(language)
+
+      await i18nHook.changeLanguage(language)
+    },
+    [i18nHook]
+  )
+
   return (
     <nav
       id="header"
@@ -14,6 +33,34 @@ const Nav: React.FC = () => {
           >
             Currency Today
           </a>
+
+          <div className="ml-4 flex items-center">
+            <GiBrazilFlag
+              onClick={() => {
+                handleChangeSelectedLanguage('pt-BR')
+              }}
+              size={40}
+              color={
+                selectedLanguage === 'pt-BR'
+                  ? colors.primary.green01
+                  : colors.gray.dark02
+              }
+              className="mr-2 cursor-pointer hover:scale-110"
+            />
+
+            <GiUsaFlag
+              onClick={() => {
+                handleChangeSelectedLanguage('en-US')
+              }}
+              size={30}
+              color={
+                selectedLanguage === 'en-US'
+                  ? colors.primary.green01
+                  : colors.gray.dark02
+              }
+              className="cursor-pointer hover:scale-110"
+            />
+          </div>
         </div>
 
         <div className="block pr-4 lg:hidden">

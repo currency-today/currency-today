@@ -1,4 +1,6 @@
 import React from 'react'
+
+import Translator from '../components/I18n/Translator'
 import Footer from '../components/Footer'
 import Nav from '../components/Nav'
 import SelectInput from '../components/SelectInput'
@@ -11,7 +13,7 @@ const Home: React.FC = () => {
       <div className="container mx-auto h-3/4">
         <div className="px-3 text-center lg:px-0">
           <h1 className="my-4 text-2xl font-black leading-tight md:text-3xl lg:text-5xl">
-            Keep track of the currencies ups and downs with us!
+            {Translator('home.welcome')}
           </h1>
 
           {/* <button className="mx-auto lg:mx-0 hover:underline text-gray-800 font-extrabold rounded my-2 md:my-6 py-4 px-8 shadow-lg w-48">
@@ -47,7 +49,7 @@ const Home: React.FC = () => {
 
         <div className="flex justify-end">
           <button className="mx-auto my-2 w-48 rounded bg-orange-500 py-4 px-8 font-extrabold text-gray-800 shadow-lg hover:underline md:my-6 lg:mx-0">
-            Calculate rate
+            {Translator('home.buttonText')}
           </button>
         </div>
       </div>
