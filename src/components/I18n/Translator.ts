@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/explicit-function-return-type */
 import { useTranslation } from 'react-i18next'
 
 const Translator = (path: any) => {
