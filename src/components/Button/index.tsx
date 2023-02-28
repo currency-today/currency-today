@@ -26,11 +26,11 @@ const Button: React.FC<IButtonProps> = ({
   id,
   onClick,
   fontColor = colors.gray.white,
-  buttonColor = colors.primary.green01,
+  buttonColor = colors.primary.orange,
   disabled,
   height = 44,
   loading,
-  borderColor = colors.primary.green01,
+  borderColor = colors.primary.orange,
   marginBottom = 0,
   marginLeft = 0,
   marginRight = 0,
@@ -57,7 +57,7 @@ const Button: React.FC<IButtonProps> = ({
     }}
     onClick={loading ?? false ? () => {} : onClick}
     disabled={(disabled ?? false) || !!(loading ?? false)}
-    className="cursor-pointer  rounded-lg border-b text-sm font-bold transition-all hover:scale-105 hover:bg-green-600 hover:shadow-lg disabled:cursor-not-allowed disabled:border-b-zinc-300 disabled:bg-zinc-300 disabled:hover:scale-100 disabled:hover:shadow-none"
+    className="cursor-pointer  rounded-lg border-b text-sm font-bold transition-all hover:scale-105 hover:bg-darkenOrange hover:shadow-lg disabled:cursor-not-allowed disabled:border-b-zinc-300 disabled:bg-zinc-300 disabled:hover:scale-100 disabled:hover:shadow-none"
     {...rest}
   >
     {loading ?? false ? (
