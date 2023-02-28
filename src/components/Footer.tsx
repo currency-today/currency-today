@@ -2,19 +2,15 @@ import React from 'react'
 
 const Footer: React.FC = () => {
   return (
-    <footer className="bg-slate-800 ">
-      <div className="container mx-auto mt-8 px-8">
-        <div className="w-full flex flex-col md:flex-row py-6">
-          <div className="flex-1 mb-6">
-            <a
-              className="text-orange-600 no-underline hover:no-underline font-bold text-2l lg:text-4xl"
-              href="#"
-            >
-              Currency Today{' '}
-              <span className="text-base">@{new Date().getFullYear()}</span>
-            </a>
-          </div>
-        </div>
+    <footer className="fixed bottom-0 w-full bg-neutralNeutral50 ">
+      <div className="container m-2 mx-auto flex w-full flex-1  flex-col px-8 md:flex-row">
+        <a
+          className="text-sm font-bold text-primaryOrange no-underline hover:no-underline lg:text-sm"
+          href="#"
+        >
+          Currency Today{' '}
+          <span className="text-base">@{new Date().getFullYear()}</span>
+        </a>
       </div>
     </footer>
   )

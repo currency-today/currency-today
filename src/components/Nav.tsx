@@ -1,8 +1,10 @@
 /* eslint-disable @typescript-eslint/no-misused-promises */
 /* eslint-disable @typescript-eslint/no-floating-promises */
 import React, { useCallback, useState } from 'react'
-import { GiBrazilFlag, GiUsaFlag } from 'react-icons/gi'
 import { useTranslation } from 'react-i18next'
+
+import Text from '../components/Text'
+import Translator from '../components/I18n/Translator'
 
 import colors from '../utils/colors'
 
@@ -20,46 +22,56 @@ const Nav: React.FC = () => {
     [i18nHook]
   )
 
+  // Fazer navegação
+
   return (
     <nav
       id="header"
-      className="top-0 z-30 w-full bg-slate-800 py-1 text-black lg:py-6"
+      className="fixed top-0 z-30 flex h-16 w-full items-center justify-center bg-neutralNeutral50"
     >
       <div className="container mx-auto mt-0 flex w-full flex-wrap items-center justify-between px-2 py-2 lg:py-6">
         <div className="flex items-center pl-4">
           <a
-            className="text-2xl font-bold text-orange-600 no-underline hover:no-underline lg:text-4xl"
+            className="text-2xl font-bold text-primaryOrange no-underline hover:no-underline lg:text-4xl"
             href="#"
           >
             Currency Today
           </a>
 
-          <div className="ml-4 flex items-center">
-            <GiBrazilFlag
+          <div className="ml-4 flex items-center justify-center">
+            <div
+              className="mr-2 cursor-pointer hover:scale-110"
               onClick={() => {
                 handleChangeSelectedLanguage('pt-BR')
               }}
-              size={40}
-              color={
-                selectedLanguage === 'pt-BR'
-                  ? colors.primary.green01
-                  : colors.gray.dark02
-              }
-              className="mr-2 cursor-pointer hover:scale-110"
-            />
+            >
+              <Text
+                text="pt-BR"
+                size={selectedLanguage === 'pt-BR' ? 18 : 14}
+                color={
+                  selectedLanguage === 'pt-BR'
+                    ? colors.primary.orange
+                    : colors.neutral.neutral500
+                }
+              />
+            </div>
 
-            <GiUsaFlag
+            <div
+              className="cursor-pointer hover:scale-110"
               onClick={() => {
                 handleChangeSelectedLanguage('en-US')
               }}
-              size={30}
-              color={
-                selectedLanguage === 'en-US'
-                  ? colors.primary.green01
-                  : colors.gray.dark02
-              }
-              className="cursor-pointer hover:scale-110"
-            />
+            >
+              <Text
+                text="en-US"
+                size={selectedLanguage === 'en-US' ? 18 : 14}
+                color={
+                  selectedLanguage === 'en-US'
+                    ? colors.primary.orange
+                    : colors.neutral.neutral500
+                }
+              />
+            </div>
           </div>
         </div>
 
@@ -86,35 +98,38 @@ const Nav: React.FC = () => {
           <ul className="list-reset flex-1 items-center justify-end lg:flex">
             <li className="mr-3">
               <a
-                className="inline-block py-2 px-4 font-bold text-orange-600 no-underline"
+                className="inline-block py-2 px-4 font-bold text-primaryOrange no-underline"
                 href="#"
               >
-                Active
+                {Translator('navbar.priceOption')}
               </a>
             </li>
+
             <li className="mr-3">
               <a
-                className="hover:text-underline inline-block py-2 px-4 text-orange-400 no-underline hover:text-gray-800"
+                className="hover:text-underline inline-block py-2 px-4 text-secondaryDarkBlue no-underline hover:text-primaryTerracota"
                 href="#"
               >
-                link
+                {Translator('navbar.newsOption')}
               </a>
             </li>
+
             <li className="mr-3">
               <a
-                className="hover:text-underline inline-block py-2 px-4 text-orange-400 no-underline hover:text-gray-800"
+                className="hover:text-underline inline-block py-2 px-4 text-secondaryDarkBlue no-underline hover:text-primaryTerracota"
                 href="#"
               >
-                link
+                {Translator('navbar.alertOption')}
               </a>
             </li>
           </ul>
-          <button
+
+          {/* <button
             id="navAction"
             className="mx-auto mt-4 rounded py-4 px-8 font-extrabold text-gray-800 opacity-75 shadow hover:underline lg:mx-0 lg:mt-0"
           >
             Action
-          </button>
+          </button> */}
         </div>
       </div>
     </nav>

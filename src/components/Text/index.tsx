@@ -24,7 +24,7 @@ interface ITextProps {
 const Text: React.FC<ITextProps> = ({
   id,
   text,
-  color = colors.gray.grayDark01,
+  color = colors.secondary.darkBlue,
   size = 16,
   align = 'center',
   marginBottom = 0,
