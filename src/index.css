@@ -17,6 +17,24 @@ code {
     monospace;
 }
 
+*::selection {
+  background: #f16a24;
+  color: #fff;
+}
+
+html::-webkit-scrollbar {
+  width: 0.4rem;
+}
+
+html::-webkit-scrollbar-track {
+  background: #000;
+}
+
+html::-webkit-scrollbar-thumb {
+  background: #f16a24;
+  border-radius: 4px;
+}
+
 #root {
   height: 100vh;
 }
