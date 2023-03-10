@@ -1,16 +1,96 @@
-import React from 'react'
+/* eslint-disable array-callback-return */
+/* eslint-disable @typescript-eslint/strict-boolean-expressions */
+/* eslint-disable @typescript-eslint/no-misused-promises */
+import React, { useState, useCallback } from 'react'
+import axios from 'axios'
 import { formatToBRL } from 'brazilian-values'
+import { toast } from 'react-toastify'
 
 import Translator from 'components/I18n/Translator'
 import Footer from 'components/Footer'
 import Nav from 'components/Nav'
 import Text from 'components/Text'
-import CurrencyPicker from 'components/CurrencyPicker'
+import CurrencyPicker, {
+  type ISelectedOptionProps,
+} from 'components/CurrencyPicker'
 import Button from 'components/Button'
 
 import colors from 'utils/colors'
 
 const Home: React.FC = () => {
+  const defaultFirstValueCurrency = {
+    name: 'Brazilian Real',
+    flag: '',
+    abbreviation: 'BRL',
+  }
+  const defaultSecondValueCurrency = {
+    name: 'US Dollar',
+    flag: '',
+    abbreviation: 'USD',
+  }
+
+  const [firstCurrencyOptionSelected, setFirstCurrencyOptionSelected] =
+    useState<ISelectedOptionProps>(defaultFirstValueCurrency)
+  const [secondCurrencyOptionSelected, setSecondCurrencyOptionSelected] =
+    useState<ISelectedOptionProps>(defaultSecondValueCurrency)
+
+  const [currentValue, setCurrentValue] = useState(5.19)
+
+  // [] -> add useEffect para buscar valor atual das moedas default
+  // [] -> Add loading na handleCalculateCurrentValue
+  // [] -> Exibir o valor na moeda selecionada
+
+  const handleCalculateCurrentValue = useCallback(async () => {
+    try {
+      if (
+        firstCurrencyOptionSelected === undefined ||
+        secondCurrencyOptionSelected === undefined
+      ) {
+        toast('Favor selecione as moedas antes de continuar', {
+          type: 'warning',
+        })
+
+        return
+      }
+
+      const response = await axios.get(
+        `https://open.er-api.com/v6/latest/${firstCurrencyOptionSelected?.abbreviation}`
+      )
+
+      if (response?.data?.rates) {
+        const keysArray = Object.keys(response.data.rates)
+        const valuesArray = Object.values(response.data.rates)
+
+        keysArray.map((key, keyIndex) => {
+          if (key === secondCurrencyOptionSelected.abbreviation) {
+            const value = Number(valuesArray[keyIndex])
+
+            setCurrentValue(value)
+
+            document.title = `${formatToBRL(value)}`
+
+            // Pensar em um jeito de encerrar o processo ao achar a moeda
+            // ou tornar isso mais performático
+
+            // Não cheguei a testar a performance, mas tbm n deve estar
+            // pesado não.
+          }
+        })
+      } else {
+        toast(
+          'Não foi possível retornar os valores correspondentes, tente novamente mais tarde.',
+          {
+            type: 'error',
+          }
+        )
+      }
+    } catch (error) {
+      toast('Ocorreu um erro desconhecido, tente novamente mais tarde', {
+        type: 'error',
+      })
+    }
+  }, [firstCurrencyOptionSelected, secondCurrencyOptionSelected])
+
   return (
     <>
       <Nav />
@@ -43,18 +123,28 @@ const Home: React.FC = () => {
               <CurrencyPicker
                 name="initialCurrency"
                 label={Translator('home.fromText')}
-                value="BRL"
+                value={defaultFirstValueCurrency.abbreviation}
+                onSelectOption={(selectedOption) => {
+                  setFirstCurrencyOptionSelected(selectedOption)
+                }}
               />
 
               <CurrencyPicker
                 name="finalCurrency"
                 label={Translator('home.toText')}
-                value="USD"
+                value={defaultSecondValueCurrency.abbreviation}
+                onSelectOption={(selectedOption) => {
+                  setSecondCurrencyOptionSelected(selectedOption)
+                }}
               />
             </div>
 
             <div className="flex w-full items-end justify-between">
-              <Button text={Translator('home.buttonText')} marginTop={16} />
+              <Button
+                text={Translator('home.buttonText')}
+                marginTop={16}
+                onClick={handleCalculateCurrentValue}
+              />
 
               <div className="flex h-11 w-1/2 items-center justify-between rounded-lg border-2 border-dashed pl-2 pr-2">
                 <Text
@@ -67,7 +157,7 @@ const Home: React.FC = () => {
                 />
 
                 <Text
-                  text={formatToBRL(5.19)}
+                  text={formatToBRL(currentValue)}
                   color={colors.primary.orange}
                   align="left"
                   size={18}
@@ -78,34 +168,6 @@ const Home: React.FC = () => {
             </div>
           </div>
         </div>
-
-        {/* <div className="px-3 text-center lg:px-0">
-          <h1 className="my-4 text-2xl font-black leading-tight md:text-3xl lg:text-5xl">
-            {Translator('home.welcome')}
-          </h1>
-
-          <button className="mx-auto lg:mx-0 hover:underline text-gray-800 font-extrabold rounded my-2 md:my-6 py-4 px-8 shadow-lg w-48">
-            Sign Up
-          </button>
-          <a
-            href="#"
-            className="inline-block mx-auto lg:mx-0 hover:underline bg-transparent text-gray-600 font-extrabold my-2 md:my-6 py-2 lg:py-4 px-8"
-          >
-            View Additional Action
-          </a>
-        </div>
-
-        <div className="flex w-full gap-2">
-          <CurrencyPicker name="initialCurrency" label="From" value="BRL" />
-
-          <CurrencyPicker name="finalCurrency" label="To" value="USD" />
-        </div> */}
-
-        {/* <div className="flex justify-end">
-          <button className="mx-auto my-2 w-48 rounded bg-orange-500 py-4 px-8 font-extrabold text-gray-800 shadow-lg hover:underline md:my-6 lg:mx-0">
-            {Translator('home.buttonText')}
-          </button>
-        </div> */}
       </div>
 
       <Footer />

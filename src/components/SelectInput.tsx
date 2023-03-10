@@ -17,7 +17,7 @@ const SelectInput = ({
   options,
 }: SelectInputProps): JSX.Element => {
   const id = `${name}-${useId()}`
-  const [open, setOpen] = useState(false)
+  const [isSelectInputOpened, setIsSelectInputOpened] = useState(false)
 
   return (
     <div className="relative w-full">
@@ -28,20 +28,23 @@ const SelectInput = ({
         >
           {label}
         </label>
+
         <input
           id={id}
           name={name}
           value={value}
           placeholder={placeholder}
-          className="form-select m-0 block w-full appearance-none rounded border border-solid border-gray-300 px-3 py-1.5 text-base font-normal transition ease-in-out focus:border-blue-400 focus:bg-white focus:text-gray-700 focus:outline-none"
+          className="form-select m-0 block w-full cursor-pointer appearance-none rounded border border-solid border-gray-300 px-3 py-1.5 text-base font-normal transition ease-in-out focus:border-blue-400 focus:bg-white focus:text-gray-700  focus:outline-none"
           onClick={() => {
-            setOpen(true)
+            setIsSelectInputOpened(!isSelectInputOpened)
           }}
-          onFocus={() => {
-            setOpen(true)
-          }}
+          // onFocus={() => {
+          //   setIsSelectInputOpened(!isSelectInputOpened)
+          // }}
           onBlur={() => {
-            setOpen(false)
+            setTimeout(() => {
+              setIsSelectInputOpened(false)
+            }, 150)
           }}
           onChange={() => {}}
         />
@@ -62,10 +65,10 @@ const SelectInput = ({
         </span>
       </fieldset>
 
-      {open && (
+      {isSelectInputOpened && (
         <div className="absolute z-[1000] mt-1 w-full min-w-max flex-col overflow-hidden rounded border border-gray-200 bg-white shadow peer-checked:flex">
           {options.map(({ label, value }) => (
-            <div key={value} className="cursor-pointer p-2 hover:bg-gray-200">
+            <div key={value} className="cursor-pointer  p-2 hover:bg-gray-200">
               {label}
             </div>
           ))}
